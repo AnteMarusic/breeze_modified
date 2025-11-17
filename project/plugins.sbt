@@ -10,3 +10,7 @@ addSbtPlugin("org.scalanlp" % "sbt-breeze-expand-codegen" % "0.2.1")
 
 addSbtPlugin("org.xerial.sbt" % "sbt-sonatype" % "2.3")
 addSbtPlugin("com.jsuereth" % "sbt-pgp" % "2.0.1")
+
+// Jacoco
+addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "2.1.5")
+addSbtPlugin("com.github.sbt" % "sbt-jacoco" % "3.5.0")

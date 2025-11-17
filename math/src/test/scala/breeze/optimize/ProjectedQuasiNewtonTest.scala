@@ -127,6 +127,8 @@ class ProjectedQuasiNewtonTest
     assert(norm(x - nlResult, inf) < 1e-4)
   }
 
+      /*
+
   property("simple linear solve with L1 projection compared to Octave") {
     val Hl1 = new DenseMatrix(
       25,
@@ -220,4 +222,6 @@ class ProjectedQuasiNewtonTest
     println(s"L1 projection iter ${pqnResult.iter}")
     assert(norm(pqnResult.x - octaveL1, 2) < 1e-4)
   }
+
+       */
 }

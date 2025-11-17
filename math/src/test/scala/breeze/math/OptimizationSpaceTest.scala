@@ -14,6 +14,25 @@ import org.scalacheck.{Gen, Prop, Arbitrary}
 trait OptimizationSpaceTest[M, V, S] extends TensorSpaceTestBase[V, Int, S] {
   override implicit val space: MutableOptimizationSpace[M, V, S]
 
+  object subs {
+    import space._
+    def t2() : Unit = {
+      check(Prop.forAll { (trip: (M, M, M)) =>
+        val (a, b, c) = trip
+        closeM((a + b) + c, a + (b + c), TOL * tolRefM(a, b, c))
+      })
+
+      check(Prop.forAll { (trip: (M, M, M)) =>
+        val (a, b, c) = trip
+        val ab = a + b
+        val bc = b + c
+        ab += c
+        bc += a
+        closeM(ab, bc, TOL * tolRefM(a, b, c))
+      })
+    }
+  }
+
   import space._
 
   def tolRefM(refs: M*): Double = refs.map(norm(_)).max
@@ -21,19 +40,7 @@ trait OptimizationSpaceTest[M, V, S] extends TensorSpaceTestBase[V, Int, S] {
   implicit def genTripleM: Arbitrary[(M, M, M)]
 
   test("Addition is Associative - Matrix") {
-    check(Prop.forAll { (trip: (M, M, M)) =>
-      val (a, b, c) = trip
-      closeM((a + b) + c, a + (b + c), TOL * tolRefM(a, b, c))
-    })
-
-    check(Prop.forAll { (trip: (M, M, M)) =>
-      val (a, b, c) = trip
-      val ab = a + b
-      val bc = b + c
-      ab += c
-      bc += a
-      closeM(ab, bc, TOL * tolRefM(a, b, c))
-    })
+    subs.t2()
   }
 
   test("Addition Commutes - Matrix") {

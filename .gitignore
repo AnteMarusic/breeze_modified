@@ -14,3 +14,6 @@ project
 .idea*
 .idea
 .bsp/
+
+.DS_Store
+jacoco.exec
